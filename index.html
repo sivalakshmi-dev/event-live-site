@@ -4,430 +4,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FunEvents | Premium Event Management</title>
+
+    <title>FunEvents | Event Management</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
-        rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         :root {
-            --primary-gold: #D4AF37;
-            --dark-navy: #0A192F;
-            --soft-bg: #F8F9FA;
-        }
-
-        /* 1. Smooth Scroll Fix */
-        html {
-            scroll-behavior: smooth;
+            --primary: #ff4d6d;
+            --secondary: #6c5ce7;
+            --dark: #111;
+            --light: #f8f9fa;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
         }
 
-        h1,
-        h2,
-        h3,
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Navbar Scrolled Effect */
+        /* NAVBAR */
         .navbar {
-            transition: 0.5s;
-            padding: 20px 0;
-        }
-
-        .navbar.scrolled {
-            background: var(--dark-navy) !important;
-            padding: 10px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-link {
-            color: white !important;
-            font-weight: 500;
-            margin: 0 15px;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
-
-        /* Highlights Section Styling */
-        .highlight-box {
-            padding: 40px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
             transition: 0.3s;
         }
 
-        /* Service Cards */
-        .service-card {
-            border: none;
-            border-radius: 15px;
-            padding: 40px 20px;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: 0.4s;
+        .navbar.scrolled {
+            background: #000;
+        }
+
+        .nav-link {
+            color: #fff !important;
+        }
+
+        /* HERO */
+        .hero {
+            height: 100vh;
+            background: url('images/hero.jpg') center/cover;
+            position: relative;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 100%;
             height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 0;
+        }
+
+        /* HIGHLIGHTS */
+        .highlight {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* INTRO */
+        .intro img {
+            border-radius: 15px;
+        }
+
+        /* SERVICES */
+        .service-card {
+            padding: 30px;
+            background: #fff;
+            border-radius: 15px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .service-card:hover {
             transform: translateY(-10px);
-            border-bottom: 5px solid var(--primary-gold);
         }
 
-        .service-card i {
-            font-size: 3rem;
-            color: var(--primary-gold);
-            margin-bottom: 20px;
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: var(--primary);
         }
 
-        /* Portfolio Fix */
-        .portfolio-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
+        /* PORTFOLIO */
+        .portfolio-item {
+            overflow: hidden;
             border-radius: 15px;
-            transition: 0.5s;
         }
 
-        /* Package Cards */
-        .package-card {
-            border: none;
-            border-radius: 20px;
+        .portfolio-item img {
+            width: 100%;
             transition: 0.3s;
         }
 
-        .package-card.featured {
-            border: 2px solid var(--primary-gold);
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* PACKAGE */
+        .package {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .package.featured {
+            border: 2px solid var(--primary);
             transform: scale(1.05);
         }
 
-        /* WhatsApp Button */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25D366;
-            color: white;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
+        /* GALLERY */
+        .marquee {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            text-decoration: none;
-        }
-
-        .marquee-wrapper {
-            width: 100%;
+            gap: 20px;
             overflow: hidden;
-            background: #f8f9fa;
-            padding: 30px 0;
-            position: relative;
         }
 
-        .marquee-content {
-            display: flex;
-            width: calc(250px * 10);
-            /* Image width * total images */
-            animation: continuousScroll 20s linear infinite;
-        }
-
-        .mq-img {
+        .marquee img {
             width: 250px;
-            height: 180px;
-            margin: 0 15px;
-            border-radius: 15px;
-            object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            animation: scroll 15s linear infinite;
         }
 
-        
-        .marquee-wrapper:hover .marquee-content {
-            animation-play-state: paused;
-        }
-
-        @keyframes continuousScroll {
+        @keyframes scroll {
             0% {
                 transform: translateX(0);
             }
 
             100% {
-                transform: translateX(calc(-250px * 5 - 150px));
+                transform: translateX(-100%);
             }
+        }
 
+        /* CONTACT */
+        .form-control {
+            padding: 12px;
+        }
+
+        /* WHATSAPP */
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: #fff;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 40px;
+            text-align: center;
         }
     </style>
+
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand text-white fs-3" href="#">FUN EVENTS</a>
-            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-            </div>
+            <a class="navbar-brand text-white fw-bold" href="#">FUN EVENTS</a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div data-aos="fade-up">
-            <h1 class="display-2 fw-bold">Magic in Every Detail</h1>
-            <p class="fs-4">Specializing in Birthdays, Magic Shows & Kitty Parties</p>
-            <a href="#contact" class="btn btn-outline-light btn-lg px-5 mt-3 rounded-pill">Plan Your Event</a>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Make Every Event Magical 🎉</h1>
+            <p>Birthday • Magic Show • Theme Decoration</p>
+            <button class="btn btn-danger mt-3 px-4">Book Now</button>
         </div>
     </section>
 
-    <section class="py-5">
+    <!-- HIGHLIGHTS -->
+    <section>
         <div class="container">
             <div class="row text-center g-4">
-                <div class="col-md-3" data-aos="fade-up">
-                    <div class="highlight-box">
-                        <h2 class="fw-bold" style="color: var(--primary-gold);">500+</h2>
-                        <p class="mb-0">Events Completed</p>
+                <div class="col-md-3">
+                    <div class="highlight">
+                        <h2>500+</h2>
+                        <p>Events</p>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="highlight-box">
-                        <h2 class="fw-bold" style="color: var(--primary-gold);">10+</h2>
-                        <p class="mb-0">Magic Themes</p>
+                <div class="col-md-3">
+                    <div class="highlight">
+                        <h2>10+</h2>
+                        <p>Themes</p>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="highlight-box">
-                        <h2 class="fw-bold" style="color: var(--primary-gold);">15k+</h2>
-                        <p class="mb-0">Happy Kids</p>
+                <div class="col-md-3">
+                    <div class="highlight">
+                        <h2>15K+</h2>
+                        <p>Clients</p>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="highlight-box">
-                        <h2 class="fw-bold" style="color: var(--primary-gold);">24/7</h2>
-                        <p class="mb-0">Support Available</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-5 bg-light">
-        <div class="container py-5 text-center">
-            <h2 class="display-4 mb-5" data-aos="fade-right">Our Curated Services</h2>
-            <div class="row g-4">
-                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="service-card">
-                        <i class="fas fa-magic"></i>
-                        <h3>Magic Shows</h3>
-                        <p>World-class illusionists for a mind-bending experience.</p>
-                    </div>
-                </div>
-                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="service-card">
-                        <i class="fas fa-birthday-cake"></i>
-                        <h3>Birthdays</h3>
-                        <p>Themed decor and entertainment for all ages.</p>
-                    </div>
-                </div>
-                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="service-card">
-                        <i class="fas fa-glass-cheers"></i>
-                        <h3>Kitty Parties</h3>
-                        <p>Sophisticated arrangements for your elite social groups.</p>
-                    </div>
-                </div>
-                <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="service-card">
-                        <i class="fas fa-balloons"></i>
-                        <h3>Decorations</h3>
-                        <p>Bespoke balloon and floral theme decorations.</p>
+                <div class="col-md-3">
+                    <div class="highlight">
+                        <h2>24/7</h2>
+                        <p>Support</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="portfolio" class="py-5">
-        <div class="container py-5 text-center">
-            <h2 class="display-4 mb-5">Our Portfolio</h2>
-            <div class="row g-4">
-                <div class="col-md-4" data-aos="fade-up"><img src="images/p1.jpg" class="portfolio-img shadow" alt="p1">
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><img src="images/p2.jpg"
-                        class="portfolio-img shadow" alt="p2"></div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><img src="images/p3.jpg"
-                        class="portfolio-img shadow" alt="p3"></div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="marquee-wrapper">
-        <div class="marquee-content">
-            <img src="images/p1.jpg" class="mq-img">
-            <img src="images/p2.jpg" class="mq-img">
-            <img src="images/p3.jpg" class="mq-img">
-            <img src="images/p4.jpg" class="mq-img">
-            <img src="images/hero.jpg" class="mq-img">
-
-            <img src="images/p1.jpg" class="mq-img">
-            <img src="images/p2.jpg" class="mq-img">
-            <img src="images/p3.jpg" class="mq-img">
-            <img src="images/p4.jpg" class="mq-img">
-            <img src="images/hero.jpg" class="mq-img">
-        </div>
-    </div>
-
-    <section id="packages" class="py-5 bg-light">
-        <div class="container py-5 text-center">
-            <h2 class="display-4 mb-5">Event Packages</h2>
-            <div class="row g-4">
-                <div class="col-md-4" data-aos="flip-left">
-                    <div class="card package-card p-4 shadow-sm border-0">
-                        <h3 class="fw-bold">Basic</h3>
-                        <h2 class="text-primary mt-3">₹4,999</h2>
-                        <ul class="list-unstyled mt-4 mb-4">
-                            <li>Balloon Decoration</li>
-                            <li>1 Magic Show (30 mins)</li>
-                            <li>Sound System</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-outline-dark rounded-pill">Choose Basic</a>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="flip-left" data-aos-delay="100">
-                    <div class="card package-card featured p-4 shadow-lg border-0 bg-white">
-                        <div class="badge bg-warning text-dark mb-2 mx-auto" style="width: fit-content;">Popular</div>
-                        <h3 class="fw-bold">Premium</h3>
-                        <h2 class="text-primary mt-2">₹9,999</h2>
-                        <ul class="list-unstyled mt-4 mb-4">
-                            <li>Theme Decoration</li>
-                            <li>Pro Magic Show (1 hr)</li>
-                            <li>Photography</li>
-                            <li>Cake Cutting Setup</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-dark rounded-pill">Choose Premium</a>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="flip-left" data-aos-delay="200">
-                    <div class="card package-card p-4 shadow-sm border-0">
-                        <h3 class="fw-bold">Elite</h3>
-                        <h2 class="text-primary mt-3">₹14,999</h2>
-                        <ul class="list-unstyled mt-4 mb-4">
-                            <li>Luxury Theme Decor</li>
-                            <li>Illusions & Magic</li>
-                            <li>Candid Photography</li>
-                            <li>MC / Hosting</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-outline-dark rounded-pill">Choose Elite</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-5">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-md-6" data-aos="fade-right">
-                    <h2 class="display-5 mb-4">Common Questions</h2>
-                    <div class="accordion mt-4 shadow-sm" id="faq">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"><button class="accordion-button" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#f1">How early should I book?</button>
-                            </h2>
-                            <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#faq">
-                                <div class="accordion-body">We recommend booking at least 2 weeks in advance for themed
-                                    events.</div>
-                            </div>
-                        </div>
-                        <div class="accordion-item mt-2 border-top">
-                            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#f2">Do you provide cake
-                                    services?</button></h2>
-                            <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faq">
-                                <div class="accordion-body">Yes, we have partnerships with premium bakers for custom
-                                    theme cakes.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" data-aos="fade-left">
-                    <div class="p-4 bg-white shadow rounded-4 border">
-                        <h3 class="mb-4">Book Your Event</h3>
-                        <form action="#">
-                            <div class="mb-3"><input type="text" class="form-control py-3" placeholder="Full Name"
-                                    required></div>
-                            <div class="mb-3"><input type="email" class="form-control py-3" placeholder="Email Address"
-                                    required></div>
-                            <div class="mb-3"><textarea class="form-control py-3" rows="3"
-                                    placeholder="Event Details (Date, Location, etc.)"></textarea></div>
-                            <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold">SEND INQUIRY</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-dark text-white py-5 text-center">
+    <!-- INTRO -->
+    <section class="bg-light">
         <div class="container">
-            <h2 class="mb-3">FUN EVENTS</h2>
-            <p>Making every celebration unforgettable.</p>
-            <div class="fs-4 my-3">
-                <i class="fab fa-instagram mx-2"></i>
-                <i class="fab fa-facebook mx-2"></i>
-                <i class="fab fa-twitter mx-2"></i>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>About FunEvents</h2>
+                    <p>We specialize in creating unforgettable birthday parties, magic shows, and theme decorations with
+                        professional quality and creative ideas.</p>
+                </div>
+                <div class="col-md-6 intro">
+                    <img src="images/p4.jpg" class="img-fluid">
+                </div>
             </div>
-            <p class="mt-4 opacity-50">© 2026 FunEvents Premium. All Rights Reserved.</p>
         </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="container text-center">
+            <h2>Our Services</h2>
+            <div class="row g-4 mt-4">
+
+                <div class="col-md-3">
+                    <div class="service-card">
+                        <div class="service-icon">🎂</div>
+                        <h5>Birthdays</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="service-card">
+                        <div class="service-icon">🎩</div>
+                        <h5>Magic Shows</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="service-card">
+                        <div class="service-icon">🎈</div>
+                        <h5>Decorations</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="service-card">
+                        <div class="service-icon">🎉</div>
+                        <h5>Kitty Parties</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="bg-light">
+        <div class="container text-center">
+            <h2>Our Portfolio</h2>
+            <div class="row g-4 mt-4">
+
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="images/p1.jpg">
+                    </div>
+                    <p class="mt-2">Birthday Theme</p>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="images/p2.jpg">
+                    </div>
+                    <p class="mt-2">Balloon Decoration</p>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="images/p3.jpg">
+                    </div>
+                    <p class="mt-2">Kids Party</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section>
+        <div class="container text-center">
+            <h2>Packages</h2>
+            <div class="row g-4 mt-4">
+
+                <div class="col-md-4">
+                    <div class="package">
+                        <h4>Basic</h4>
+                        <p>₹4,999</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="package featured">
+                        <h4>Premium</h4>
+                        <p>₹9,999</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="package">
+                        <h4>Elite</h4>
+                        <p>₹14,999</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section>
+        <div class="container text-center">
+            <h2>Gallery</h2>
+            <div class="marquee mt-4">
+                <img src="images/p1.jpg">
+                <img src="images/p2.jpg">
+                <img src="images/p3.jpg">
+                <img src="images/p4.jpg">
+                <img src="images/hero.jpg">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ + FORM -->
+    <section id="contact" class="bg-light">
+        <div class="container">
+            <div class="row g-5">
+
+                <div class="col-md-6">
+                    <h3>FAQ</h3>
+                    <p><b>How early booking?</b><br>2 weeks prior</p>
+                    <p><b>Custom themes?</b><br>Yes available</p>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Contact Us</h3>
+                    <input class="form-control mb-2" placeholder="Name">
+                    <input class="form-control mb-2" placeholder="Email">
+                    <textarea class="form-control mb-2"></textarea>
+                    <button class="btn btn-dark">Send</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 FunEvents</p>
     </footer>
 
-    <a href="https://api.whatsapp.com/send?phone=910000000000" class="whatsapp-btn shadow-lg" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div class="whatsapp">💬</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 50) {
-                document.querySelector('.navbar').classList.add('scrolled');
-            } else {
-                document.querySelector('.navbar').classList.remove('scrolled');
-            }
-        });
+        window.addEventListener("scroll", function () {
+            document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 50)
+        })
     </script>
+
 </body>
 
 </html>
