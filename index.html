@@ -4,47 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>FunEvents | Premium Event Management</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 
     <style>
         :root {
-            --primary: #ff4d6d;
-            --dark: #0f172a;
+            --gold: #D4AF37;
+            --dark-bg: #0a0a0a;
+            --soft-white: #f8f9fa;
         }
 
-        /* GLOBAL */
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: var(--soft-white);
+            color: #333;
+            overflow-x: hidden;
         }
 
-        section {
-            padding: 80px 0
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
         }
 
         /* NAVBAR */
         .navbar {
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            transition: .3s;
+            transition: 0.4s;
+            padding: 20px 0;
         }
 
         .navbar.scrolled {
-            background: #000;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px 0;
+            backdrop-filter: blur(10px);
         }
 
         .nav-link {
             color: #fff !important;
-            font-weight: 500
+            font-weight: 500;
+            margin: 0 15px;
+            border-bottom: 2px solid transparent;
         }
 
-        /* HERO */
+        .nav-link:hover {
+            border-bottom: 2px solid var(--gold);
+        }
+
+        /* HERO SECTION */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('images/hero.jpg') center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=2000') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -53,318 +68,307 @@
         }
 
         .hero h1 {
-            font-size: 60px;
-            font-weight: 700
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 20px;
         }
 
-        .hero p {
-            font-size: 20px
+        .btn-premium {
+            background: var(--gold);
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 0;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 1px solid var(--gold);
         }
 
-        /* BUTTON */
-        .btn-main {
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
+        .btn-premium:hover {
+            background: transparent;
+            color: var(--gold);
         }
 
-        /* HIGHLIGHTS */
-        .highlight {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
-        }
-
-        /* SERVICES */
-        .service-card {
-            padding: 30px;
-            background: #fff;
-            border-radius: 15px;
-            text-align: center;
-            transition: .3s;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px)
-        }
-
-        .service-icon {
-            font-size: 40px;
-            color: var(--primary)
-        }
-
-        /* PORTFOLIO */
-        .portfolio-item {
+        /* PORTFOLIO & LIGHTBOX */
+        .portfolio-card {
             position: relative;
             overflow: hidden;
-            border-radius: 15px;
+            border-radius: 0;
+            cursor: pointer;
+            height: 350px;
         }
 
-        .portfolio-item img {
-            width: 100%
-        }
-
-        .overlay {
-            position: absolute;
-            bottom: 0;
+        .portfolio-card img {
             width: 100%;
-            background: rgba(0, 0, 0, .6);
-            color: #fff;
-            padding: 10px;
-            text-align: center;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
         }
 
-        /* PACKAGES */
-        .package {
-            background: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+        .portfolio-card:hover img {
+            transform: scale(1.1);
         }
 
-        .package.featured {
-            border: 2px solid var(--primary);
-            transform: scale(1.05);
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.5s;
         }
 
-        /* GALLERY */
-        .marquee {
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h5 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            transform: translateY(20px);
+            transition: 0.4s;
+        }
+
+        .portfolio-card:hover .portfolio-overlay h5 {
+            transform: translateY(0);
+        }
+
+        /* MARQUEE GALLERY */
+        .gallery-wrapper {
+            background: var(--dark-bg);
+            padding: 60px 0;
+            margin-top: 50px;
+        }
+
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            gap: 20px;
+        }
+
+        .marquee-content {
             display: flex;
             gap: 20px;
-            overflow: hidden;
+            animation: scroll 30s linear infinite;
         }
 
-        .marquee img {
-            width: 250px;
-            border-radius: 10px;
-            animation: scroll 20s linear infinite;
+        .marquee-content img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            filter: grayscale(50%);
+            transition: 0.3s;
+        }
+
+        .marquee-content img:hover {
+            filter: grayscale(0%);
         }
 
         @keyframes scroll {
             0% {
-                transform: translateX(0)
+                transform: translateX(0);
             }
 
             100% {
-                transform: translateX(-100%)
+                transform: translateX(-50%);
             }
         }
 
-        /* WHATSAPP */
-        .whatsapp {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #25D366;
-            color: #fff;
-            padding: 15px;
-            border-radius: 50%;
+        /* CONTACT FORM */
+        .contact-section {
+            background: #fff;
+            padding: 100px 0;
         }
 
-        /* FOOTER */
-        footer {
-            background: #000;
-            color: #fff;
-            text-align: center;
-            padding: 40px;
+        .form-control {
+            border-radius: 0;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus {
+            border-color: var(--gold);
+            box-shadow: none;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand text-white fw-bold">FUN EVENTS</a>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-            </ul>
+            <a class="navbar-brand text-white fw-bold fs-3" href="#">FUN<span
+                    style="color:var(--gold)">EVENTS</span></a>
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <!-- HERO -->
     <section class="hero">
-        <div>
-            <h1>Creating Magical Celebrations</h1>
-            <p>Birthday • Magic Shows • Theme Decoration</p>
-            <button class="btn-main mt-3">Book Now</button>
+        <div class="container" data-aos="fade-up">
+            <h1 class="display-1">Exquisite Events. <br> Timeless Memories.</h1>
+            <p class="lead mb-4">Premium Decorators for Birthdays, Theme Parties & Corporate Galas.</p>
+            <a href="#contact" class="btn btn-premium">GET A QUOTE</a>
         </div>
     </section>
 
-    <!-- HIGHLIGHTS -->
-    <section>
-        <div class="container">
-            <div class="row text-center g-4">
-                <div class="col-md-3">
-                    <div class="highlight">
-                        <h2 class="counter" data-target="500">0</h2>
-                        <p>Events</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="highlight">
-                        <h2 class="counter" data-target="10">0</h2>
-                        <p>Themes</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="highlight">
-                        <h2 class="counter" data-target="15000">0</h2>
-                        <p>Clients</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="highlight">
-                        <h2>24/7</h2>
-                        <p>Support</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services" class="bg-light">
+    <section id="services" class="py-5 mt-5">
         <div class="container text-center">
-            <h2>Our Services</h2>
-            <div class="row g-4 mt-4">
-
-                <div class="col-md-3">
-                    <div class="service-card">
-                        <div class="service-icon">🎂</div>
-                        <h5>Birthdays</h5>
+            <h6 class="text-uppercase text-muted" style="letter-spacing: 3px;">What We Do</h6>
+            <h2 class="mb-5">Our Signature Services</h2>
+            <div class="row g-4">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-4 shadow-sm bg-white border-top border-warning">
+                        <h3 class="h1">🎂</h3>
+                        <h5>Grand Birthdays</h5>
+                        <p class="small text-muted">Luxury themes tailored for your special day.</p>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="service-card">
-                        <div class="service-icon">🎩</div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-4 shadow-sm bg-white border-top border-warning">
+                        <h3 class="h1">🎈</h3>
+                        <h5>Balloons & More</h5>
+                        <p class="small text-muted">Creative installations that wow every guest.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="p-4 shadow-sm bg-white border-top border-warning">
+                        <h3 class="h1">🎩</h3>
                         <h5>Magic Shows</h5>
+                        <p class="small text-muted">World-class entertainment for kids & adults.</p>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="service-card">
-                        <div class="service-icon">🎈</div>
-                        <h5>Decorations</h5>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="p-4 shadow-sm bg-white border-top border-warning">
+                        <h3 class="h1">🏢</h3>
+                        <h5>Corporate Events</h5>
+                        <p class="small text-muted">Professional planning for business milestones.</p>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="service-card">
-                        <div class="service-icon">🎉</div>
-                        <h5>Kitty Parties</h5>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- PORTFOLIO -->
-    <section id="portfolio">
-        <div class="container text-center">
-            <h2>Our Portfolio</h2>
-            <div class="row g-4 mt-4">
-
-                <div class="col-md-4">
-                    <div class="portfolio-item">
-                        <img src="images/p1.jpg">
-                        <div class="overlay">Birthday Theme</div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="portfolio-item">
-                        <img src="images/p2.jpg">
-                        <div class="overlay">Balloon Decoration</div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="portfolio-item">
-                        <img src="images/p3.jpg">
-                        <div class="overlay">Kids Party</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="bg-light text-center">
+    <section id="portfolio" class="py-5">
         <div class="container">
-            <h2>Gallery</h2>
-            <div class="marquee mt-4">
-                <img src="images/p1.jpg">
-                <img src="images/p2.jpg">
-                <img src="images/p3.jpg">
-                <img src="images/p4.jpg">
-                <img src="images/hero.jpg">
+            <div class="text-center mb-5">
+                <h2>Our Portfolio</h2>
+                <div style="width: 50px; height: 3px; background: var(--gold); margin: 10px auto;"></div>
+            </div>
+            <div class="row g-0">
+                <div class="col-md-4" data-aos="zoom-in">
+                    <a href="https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=800" class="glightbox">
+                        <div class="portfolio-card">
+                            <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=800"
+                                alt="Birthday Decor">
+                            <div class="portfolio-overlay">
+                                <h5>Birthday Extravaganza</h5>
+                                <span class="badge bg-warning text-dark">Click to View</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <a href="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800" class="glightbox">
+                        <div class="portfolio-card">
+                            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800"
+                                alt="Balloon Art">
+                            <div class="portfolio-overlay">
+                                <h5>Dreamy Balloon Art</h5>
+                                <span class="badge bg-warning text-dark">Click to View</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <a href="https://images.unsplash.com/photo-1472653431158-6364773b2a56?q=80&w=800" class="glightbox">
+                        <div class="portfolio-card">
+                            <img src="https://images.unsplash.com/photo-1472653431158-6364773b2a56?q=80&w=800"
+                                alt="Theme Party">
+                            <div class="portfolio-overlay">
+                                <h5>Themed Celebrations</h5>
+                                <span class="badge bg-warning text-dark">Click to View</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact">
+    <div class="gallery-wrapper">
+        <div class="container text-center mb-4">
+            <h2 class="text-white">Event Highlights</h2>
+        </div>
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?q=80&w=500" alt="1">
+                <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=500" alt="2">
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=500" alt="3">
+                <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=500" alt="4">
+                <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?q=80&w=500" alt="1">
+                <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=500" alt="2">
+            </div>
+        </div>
+    </div>
+
+    <section id="contact" class="contact-section">
         <div class="container">
-            <div class="row g-5">
-
-                <div class="col-md-6">
-                    <h3>FAQ</h3>
-                    <p><b>How early booking?</b><br>2 weeks prior</p>
-                    <p><b>Custom themes?</b><br>Yes available</p>
+            <div class="row align-items-center">
+                <div class="col-md-5" data-aos="fade-right">
+                    <h2 class="display-5 mb-4">Let's Create Something <span style="color:var(--gold)">Magic.</span></h2>
+                    <p class="text-muted">Contact us today for a free consultation and customized event plan.</p>
+                    <div class="mt-4">
+                        <p><strong>📍 Office:</strong> Bangalore, India</p>
+                        <p><strong>📞 Call:</strong> +91 98765 43210</p>
+                    </div>
                 </div>
-
-                <div class="col-md-6">
-                    <h3>Contact</h3>
-                    <input class="form-control mb-2" placeholder="Name">
-                    <input class="form-control mb-2" placeholder="Email">
-                    <textarea class="form-control mb-2"></textarea>
-                    <button class="btn-main">Send</button>
+                <div class="col-md-7" data-aos="fade-left">
+                    <form class="p-5 shadow bg-light">
+                        <div class="row">
+                            <div class="col-md-6"><input type="text" class="form-control" placeholder="Full Name"></div>
+                            <div class="col-md-6"><input type="email" class="form-control" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Event Type (e.g. Birthday)">
+                        <textarea class="form-control" rows="4"
+                            placeholder="Tell us about your dream event..."></textarea>
+                        <button type="submit" class="btn btn-premium w-100">SEND MESSAGE</button>
+                    </form>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2026 FunEvents</p>
+    <footer class="bg-black text-white py-4 text-center">
+        <p class="small text-white-50 mb-0">© 2026 FunEvents Premium. All Rights Reserved.</p>
     </footer>
 
-    <div class="whatsapp">💬</div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
     <script>
+        AOS.init({ duration: 1000, once: true });
+        const lightbox = GLightbox({ touchNavigation: true, loop: true });
+
         window.addEventListener("scroll", () => {
-            document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 50)
-        })
-
-        // COUNTER
-        const counters = document.querySelectorAll(".counter");
-        counters.forEach(c => {
-            let target = +c.dataset.target;
-            let count = 0;
-            let speed = target / 100;
-
-            function update() {
-                count += speed;
-                if (count < target) {
-                    c.innerText = Math.floor(count);
-                    requestAnimationFrame(update);
-                } else {
-                    c.innerText = target + "+";
-                }
-            }
-            update();
+            document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 100);
         });
     </script>
-
 </body>
 
 </html>
